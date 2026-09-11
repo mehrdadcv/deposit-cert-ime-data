@@ -1,0 +1,3 @@
+start_collection_from: "2026-01-01"
+filter_commodity: 2
+output_file_name: "deposit_cert_data.csv"
