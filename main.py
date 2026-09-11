@@ -43,14 +43,14 @@ page_num = 1
 data_list = []
 
 
-# the max time line we can send a request for is 3 months. beside this restriction,
+# the max time line we can send a request for is 6 months. beside this restriction,
 # the site doesn't care how old we set our fromDate.
 # "from_date" is a really old date so we don't miss any data.
 today = dt.date.today()
 # you can change from_date to a specific date from settings.yaml
 # otherwise, the program automatically downloads from 2026-01-01
 from_date = dt.date.strptime(settings["start_collection_from"], "%Y-%m-%d")
-to_date = from_date + relativedelta(months=3)
+to_date = from_date + relativedelta(months=6)
 
 print("preparations complete. sending request from date: ", from_date)
 while to_date < today:
@@ -88,11 +88,11 @@ while to_date < today:
             if row["CommodityID"] == settings["filter_commodity"]:
                 data_list.append(row)
 
-    # after the pages of a time line ends, we move the 3 month window:
+    # after the pages of a time line ends, we move the 6 month window:
     # 1- set "from_date" as "to_date"
-    # 2- increase "from_date" by 3 months, and set it as "to_date"
+    # 2- increase "from_date" by 6 months, and set it as "to_date"
     from_date = to_date
-    to_date = from_date + relativedelta(months=3)
+    to_date = from_date + relativedelta(months=6)
     new_df = pd.DataFrame(data_list)
 
     # we have to set "encoding" as 'utf-8-sig' so Persian names are saved correctly and are readable
